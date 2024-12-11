@@ -1,7 +1,7 @@
-# example/urls.py
+# pixelpioneer/urls.py
 from django.urls import path
 
-from example.views import index
+from pixelpioneer.views import index
 
 
 urlpatterns = [
