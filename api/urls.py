@@ -11,12 +11,39 @@ Class-based views
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    2. Add a URL to urlpatterns:  path('pixelpioneer/', include('pixelpioneer.urls'))
 """
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework.routers import DefaultRouter
+from pixelpioneer.views import ProductCardViewSet
+
+router = DefaultRouter()
+router.register(r'products', ProductCardViewSet)
+
+
+# Define the schema view
+schema_view = get_schema_view(
+   openapi.Info(
+      title="All Api's",
+      default_version='v1'
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
+
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pixelpioneer.urls')),
+    path('api/', include(router.urls)),
+    path('auth/', include('accountsapi.urls')),
+    path('api/pixelpioneer/', include('pixelpioneerapi.urls')),
+    path('', schema_view.with_ui('swagger'), name='swagger-ui')
 ]
+
