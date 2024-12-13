@@ -22,8 +22,8 @@ class ProductForm(forms.ModelForm):
         if 'forbidden' in product_name.lower():
             raise forms.ValidationError("The product name cannot contain the word 'forbidden'.")
 
-        if len(product_name) < 5:
-            raise forms.ValidationError("The product name must be at least 5 characters long.")
+        if len(product_name) < 1 :
+            raise forms.ValidationError("The product name must not be empty.")
         if len(product_name) > 100:
             raise forms.ValidationError("The product name cannot be more than 100 characters long.")
 
@@ -33,11 +33,30 @@ class ProductForm(forms.ModelForm):
         description = self.cleaned_data.get('description')
 
         if len(description) < 10:
-            raise forms.ValidationError("The description must be at least 20 characters long.")
-        if len(description) > 2000:
-            raise forms.ValidationError("The description cannot be more than 2000 characters long.")
+            raise forms.ValidationError("The description must be at least 10 characters long.")
+        if len(description) > 1500:
+            raise forms.ValidationError("The description cannot be more than 1500 characters long.")
 
         return description.strip()
 
-    
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+
+        if price <= 0:
+            raise forms.ValidationError("Price must be greater than 0.")
+        if price > 999999.99:  
+            raise forms.ValidationError("Price cannot exceed 999,999.99")
+
+        return price
+
+    def clean_stock(self):
+        stock = self.cleaned_data.get('stock')
+
+        if stock < 0:
+            raise forms.ValidationError("Stock cannot be negative.")
+        if stock > 9999:  
+            raise forms.ValidationError("Stock cannot exceed 9,999 units.")
+
+        return stock
+
   

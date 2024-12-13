@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelPioneer</title>
-</head>
-<body>
+{% extends 'pixelpioneer/base.html' %}
+{% block content %}
+
     <h1>rendering from index.html file</h1>
+    <a href="{% url 'product_list' %}" class="btn btn-primary">go to Product page</a>
+    <a href="{% url 'swagger-ui' %}" class="btn btn-success">go to Product API</a>
+
     
-</body>
-</html>
+
+{% endblock %}

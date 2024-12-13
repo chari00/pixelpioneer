@@ -43,7 +43,7 @@ urlpatterns = [
     path('', include('pixelpioneer.urls')),
     path('api/', include(router.urls)),
     path('auth/', include('accountsapi.urls')),
-    path('api/pixelpioneer/', include('pixelpioneerapi.urls')),
-    path('', schema_view.with_ui('swagger'), name='swagger-ui')
+    # path('api/', include('pixelpioneerapi.urls')),
+    path('api', schema_view.with_ui('swagger'), name='swagger-ui')
 ]
 

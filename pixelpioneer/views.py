@@ -24,24 +24,21 @@ def product_list(request):
 
     products = ProductCard.objects.all()
 
-    return render(request, 'product_list.html', {'products':products})
+    return render(request, 'pixelpioneer/product_list.html', {'products':products})
 
 def product_detail(request, id):
 
     product = get_object_or_404(ProductCard, pk=id)
 
-    return render(request, 'product_detail.html', {'product':product})
+    return render(request, 'pixelpioneer/product_detail.html', {'product':product})
 
-def product_new(request):
+def product_create(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = User.objects.get(username='sai')
-            post.published_date = timezone.now()
-            post.save()
+            product = form.save(commit=False)
+            product.save()
 
-            # messages.success(request, "Post successfully created!")
             return redirect('product_list')
     else:
         form = ProductForm()
@@ -52,13 +49,19 @@ def product_edit(request, id):
     if request.method == "POST":
         form = ProductForm(request.POST, instance=product)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = User.objects.get(username='sai')
-            post.published_date = timezone.now()
-            post.save()
+            product = form.save(commit=False)
+            product.save()
 
-            # messages.success(request, "Post successfully edited!")
             return redirect('product_detail', id=product.pk)
     else:
         form = ProductForm(instance=product)
     return render(request, 'pixelpioneer/product_edit.html', {'form': form, 'product':product})
+
+def product_delete(request, id):
+    product = get_object_or_404(ProductCard, pk=id)
+    if request.method == "POST":
+        product.delete()
+        return redirect('product_list')
+    
+# return redirect(product_detail, id=id)
+    return render(request, 'pixelpioneer/product_confirm_delete.html', {'product': product})
