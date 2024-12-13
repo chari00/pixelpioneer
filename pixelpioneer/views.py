@@ -34,23 +34,21 @@ def product_detail(request, id):
 
 def product_create(request):
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            product = form.save(commit=False)
-            product.save()
-
+            form.save()  
             return redirect('product_list')
     else:
         form = ProductForm()
     return render(request, 'pixelpioneer/product_edit.html', {'form': form})
 
+
 def product_edit(request, id):
     product = get_object_or_404(ProductCard, pk=id)
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
+        form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
-            product = form.save(commit=False)
-            product.save()
+            product = form.save()
 
             return redirect('product_detail', id=product.pk)
     else:
@@ -63,5 +61,4 @@ def product_delete(request, id):
         product.delete()
         return redirect('product_list')
     
-# return redirect(product_detail, id=id)
     return render(request, 'pixelpioneer/product_confirm_delete.html', {'product': product})

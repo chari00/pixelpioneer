@@ -22,6 +22,10 @@ from drf_yasg import openapi
 from rest_framework.routers import DefaultRouter
 from pixelpioneer.views import ProductCardViewSet
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 router = DefaultRouter()
 router.register(r'products', ProductCardViewSet)
 
@@ -44,6 +48,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('auth/', include('accountsapi.urls')),
     # path('api/', include('pixelpioneerapi.urls')),
-    path('api', schema_view.with_ui('swagger'), name='swagger-ui')
-]
+path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-ui')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
