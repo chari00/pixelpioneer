@@ -55,28 +55,48 @@ def loginpost(request):
     })
 
 
+# class RegisterView(APIView):
+#     @swagger_auto_schema(request_body=RegisterSerializer)
+#     def post(self, request):
+#         data = request.data
+#         serializer = RegisterSerializer(data=data)
+#         if serializer.is_valid():
+#             user = serializer.save()
+#             user_data = {
+#                 "id": user.id,
+#                 "username": user.username,
+#                 "email" : getattr(user, "email", "")
+#             }
+#             return Response({
+#                 "status": True,
+#                 "message": "User Created Successfully",
+#                 "data" : user_data
+#             }, status= status.HTTP_201_CREATED)
+#         return Response({
+#             "status": False,
+#             "message": serializer.errors
+#         }, status= status.HTTP_400_BAD_REQUEST)
+    
+
 class RegisterView(APIView):
     @swagger_auto_schema(request_body=RegisterSerializer)
     def post(self, request):
-        data = request.data
-        serializer = RegisterSerializer(data=data)
+        serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            user_data = {
-                "id": user.id,
-                "username": user.username,
-                "email" : getattr(user, "email", "")
-            }
+            # Generate and send OTP
+            otp = generate_otp(user)
             return Response({
                 "status": True,
-                "message": "User Created Successfully",
-                "data" : user_data
-            }, status= status.HTTP_201_CREATED)
+                "message": "Please verify your email with OTP",
+                "user_id": user.id
+            }, status=status.HTTP_201_CREATED)
         return Response({
             "status": False,
             "message": serializer.errors
-        }, status= status.HTTP_400_BAD_REQUEST)
-    
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
     
@@ -156,3 +176,34 @@ def verify_otp_login(request):
             "status": False,
             "message": "Invalid OTP"
         }, status=400)
+
+@api_view(['POST'])
+def verify_registration_otp(request):
+    user_id = request.data.get('user_id')
+    otp_code = request.data.get('otp')
+    
+    try:
+        user = User.objects.get(id=user_id)
+        otp_obj = OTP.objects.filter(
+            user=user,
+            otp=otp_code,
+            expires_at__gt=datetime.now()
+        ).latest('created_at')
+        
+        if otp_obj:
+            # Activate user
+            user.is_active = True
+            user.save()
+            # Create token
+            token = Token.objects.create(user=user)
+            return Response({
+                "status": True,
+                "message": "Registration successful",
+                "token": token.key
+            })
+    except (User.DoesNotExist, OTP.DoesNotExist):
+        return Response({
+            "status": False,
+            "message": "Invalid OTP"
+        }, status=400)
+
