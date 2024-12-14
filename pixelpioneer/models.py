@@ -8,6 +8,8 @@ class ProductCard(models.Model):
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     category = models.CharField(max_length=100)
     stock = models.IntegerField(validators=[MinValueValidator(0)])
+    feature = models.BooleanField(default=False)
+    is_new = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
