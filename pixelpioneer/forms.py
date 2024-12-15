@@ -12,6 +12,8 @@ class ProductForm(forms.ModelForm):
             'description': 'Product Description',
             'price': 'Price',
             'image': 'Image',
+            'feature': 'Featured',
+            'is_new': 'New Product',
             'category': 'Category',
             'stock': 'Stock'
         }
