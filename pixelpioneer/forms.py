@@ -5,7 +5,7 @@ from pixelpioneer.models import ProductCard
 class ProductForm(forms.ModelForm):
     class Meta:
         model = ProductCard
-        fields = ('product_name', 'description', 'price', 'image', 'category', 'stock')
+        fields = ('product_name', 'description', 'price', 'image', 'category', 'feature', 'is_new' 'stock')
         
         labels = {
             'product_name': 'Product Name',
