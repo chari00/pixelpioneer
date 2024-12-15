@@ -169,7 +169,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=f"postgresql://{env('DB_USER')}:{env('DB_PASSWORD')}@{env('DB_HOST')}:{env('DB_PORT')}/{env('DB_NAME')}",
         conn_max_age=600,
-        ssl_require=True  
+        ssl_require=True,
     )
 }
 
