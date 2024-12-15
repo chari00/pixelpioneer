@@ -5,7 +5,7 @@ from .models import ProductCard
 class ProductCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductCard
-        fields = ['id', 'product_name', 'description', 'price', 'image', 'category', 'stock', 'created_at', 'updated_at']
+        fields = ['id', 'product_name', 'description', 'price', 'image', 'category', 'feature', 'is_new', 'stock', 'created_at', 'updated_at']
 
     def validate_product_name(self, value):
         if len(value) < 1:
