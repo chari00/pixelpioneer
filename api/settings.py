@@ -43,7 +43,7 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'pixelpioneer.onrender.com/']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'pixelpioneer.onrender.com']
 
 
 # Application definition
@@ -148,15 +148,9 @@ WSGI_APPLICATION = 'api.wsgi.app'
 #     }
 # }
 
-# import dj_database_url
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://pixelpioneerdb_user:qDK3PV6fwnHerFxgzaXFcvbfrutiruKw@dpg-ctfb7c52ng1s738i4120-a.oregon-postgres.render.com/pixelpioneerdb',
-#         conn_max_age=600,
-#         ssl_require=True
-#     )
-# }
+##=====================================================================================
+
 
 import dj_database_url
 
@@ -172,6 +166,7 @@ DATABASES = {
         ssl_require=True,
     )
 }
+##=====================================================================================
 
 
 
