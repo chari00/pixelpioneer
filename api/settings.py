@@ -36,11 +36,11 @@ SECRET_KEY = 'django-insecure-=cldztbc4jg&xl0!x673!*v2_=p$$eu)=7*f#d0#zs$44xx-h^
 # SESSION_COOKIE_SECURE = False
 # CSRF_COOKIE_SECURE = False
 
-#for production on render
+## for production on render
 DEBUG = False
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'pixelpioneer.onrender.com']
@@ -152,20 +152,20 @@ DATABASES = {
 ##=====================================================================================
 
 
-# import dj_database_url
+import dj_database_url
 
-# # Load environment variables
-# from dotenv import load_dotenv
-# load_dotenv()
+# Load environment variables
+from dotenv import load_dotenv
+load_dotenv()
 
-# # Database configuration
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=f"postgresql://{env('DB_USER')}:{env('DB_PASSWORD')}@{env('DB_HOST')}:{env('DB_PORT')}/{env('DB_NAME')}",
-#         conn_max_age=600,
-#         ssl_require=True,
-#     )
-# }
+# Database configuration
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"postgresql://{env('DB_USER')}:{env('DB_PASSWORD')}@{env('DB_HOST')}:{env('DB_PORT')}/{env('DB_NAME')}",
+        conn_max_age=600,
+        ssl_require=True,
+    )
+}
 ##=====================================================================================
 
 
