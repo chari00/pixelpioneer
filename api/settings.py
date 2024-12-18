@@ -273,7 +273,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'pixelpioneer' / 'static' 
 ]
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/opt/render/project/src/mediafiles'
+
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
