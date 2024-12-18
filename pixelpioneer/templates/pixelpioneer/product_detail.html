@@ -4,7 +4,11 @@
   <div class="col-md-6">
     <!-- <img src="{{ MEDIA_URL }}{{ product.image }}" class="img-fluid rounded" alt="{{ product.product_name }}"> -->
     {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.product_name }}" />
+    <img
+      src="{{ product.image.url }}"
+      class="img-fluid rounded"
+      alt="{{ product.product_name }}"
+    />
     {% endif %}
   </div>
   <div class="col-md-6">
