@@ -47,8 +47,11 @@ CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
 # SECURE_SSL_REDIRECT = True   #this should be false when running local, true when deployed live
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# CSRF_TRUSTED_ORIGINS = ['https://pixelpioneer.onrender.com']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    "https://pixelpioneer.onrender.com",
+    "https://pixel-pioneer-photo.vercel.app"
+]
 
 
 
@@ -92,6 +95,13 @@ CORS_ALLOWED_ORIGINS = [
     "https://pixel-pioneer-photo.vercel.app",
     "https://pixelpioneer.onrender.com"
 ]
+
+
+CORS_ALLOW_METHODS = [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", ]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = CSRF_TRUSTED_ORIGINS
+
 
 
 ROOT_URLCONF = 'api.urls'
@@ -205,7 +215,6 @@ DATABASES = {
 
 
 
-CORS_ALLOW_METHODS = [ "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", ]
 
 
 # import environ
