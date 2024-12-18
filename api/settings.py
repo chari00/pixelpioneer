@@ -283,12 +283,10 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/opt/render/project/src/mediafiles'
-
 if DEBUG:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_ROOT = '/opt/render/project/src/mediafiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

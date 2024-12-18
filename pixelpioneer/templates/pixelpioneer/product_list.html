@@ -13,11 +13,18 @@ Pioneer{% endblock %} {% block content %}
   {% for product in products %}
   <div class="col">
     <div class="card h-100">
-      <img
+      <!-- <img
         src="{{ MEDIA_URL }}{{ product.image }}"
         class="card-img-top"
         alt="{{ product.product_name }}"
+      /> -->
+      {% if product.image %}
+      <img
+        src="{{ product.image.url }}"
+        class="card-img-top"
+        alt="{{ product.product_name }}"
       />
+      {% endif %}
       <div class="card-body">
         <h5 class="card-title">{{ product.product_name }}</h5>
         <p class="card-text">{{ product.description|truncatewords:30 }}</p>
@@ -25,8 +32,12 @@ Pioneer{% endblock %} {% block content %}
         <p class="card-text">
           <strong>Category:</strong> {{ product.category }}
         </p>
-        <p class="card-text" >Featured: {% if product.feature %}Yes{% else %}No{% endif %}</p>
-        <p class="card-text" >New Product: {% if product.is_new %}Yes{% else %}No{% endif %}</p>
+        <p class="card-text">
+          Featured: {% if product.feature %}Yes{% else %}No{% endif %}
+        </p>
+        <p class="card-text">
+          New Product: {% if product.is_new %}Yes{% else %}No{% endif %}
+        </p>
         <p class="card-text"><strong>Stock:</strong> {{ product.stock }}</p>
         <a
           href="{% url 'product_detail' id=product.id %}"
