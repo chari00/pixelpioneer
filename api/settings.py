@@ -31,28 +31,28 @@ SECRET_KEY = 'django-insecure-=cldztbc4jg&xl0!x673!*v2_=p$$eu)=7*f#d0#zs$44xx-h^
 # SECURITY WARNING: don't run with debug turned on in production!
 
 # #for local development
-DEBUG = False  #change to False when deployed live
+# DEBUG = False  #change to False when deployed live
 
 
 
 ## for production on render
-# DEBUG = False
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-
-
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
+DEBUG = False
+SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True   #this should be false when running local, true when deployed live
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = ['https://pixelpioneer.onrender.com']
+
+
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True   #this should be false when running local, true when deployed live
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# CSRF_TRUSTED_ORIGINS = ['https://pixelpioneer.onrender.com']
 
 
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'https://pixelpioneer.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', 'pixelpioneer.onrender.com']
 
 
 # Application definition
