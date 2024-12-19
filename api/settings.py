@@ -46,7 +46,7 @@ CSRF_COOKIE_SECURE = True
 # SECURE_BROWSER_XSS_FILTER = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True   #this should be false when running local, true when deployed live
+SECURE_SSL_REDIRECT = True   #this should be false when running local, true when deployed live
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CSRF_TRUSTED_ORIGINS = [
     "https://pixelpioneer.onrender.com",
@@ -283,10 +283,10 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 
-if DEBUG:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-else:
-    MEDIA_ROOT = '/opt/render/project/src/mediafiles'
+# if DEBUG:
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# else:
+    # MEDIA_ROOT = '/opt/render/project/src/mediafiles'
 
 FILE_UPLOAD_PERMISSIONS = 0o644
 # File upload settings
