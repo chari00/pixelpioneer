@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_api_key.permissions import HasAPIKey
 
 from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 @api_view(['GET'])
@@ -20,6 +21,35 @@ def getAllProducts(request):
         "status": True,
         "data": serializer.data
         })
+
+
+@api_view(['GET'])
+@swagger_auto_schema(
+    operation_description="Get products by category name",
+    manual_parameters=[
+        openapi.Parameter(
+            'category',
+            openapi.IN_QUERY,
+            description="Category name to filter products",
+            type=openapi.TYPE_STRING
+        )
+    ]
+)
+def getProductsByCategory(request):
+    category = request.query_params.get('category', '')
+    if category:
+        products = ProductCard.objects.filter(category__icontains=category)
+        serializer = ProductCardSerializer(products, many=True)
+        return Response({
+            "status": True,
+            "message": f"Products in category: {category}",
+            "data": serializer.data
+        })
+    return Response({
+        "status": False,
+        "message": "Category parameter is required",
+    }, status=400)
+
 
 @api_view(['GET'])
 def getProductById(request, id):

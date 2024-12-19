@@ -3,7 +3,7 @@
 
 
 from rest_framework import viewsets
-from pixelpioneer.models import ProductCard  # Import from models.py instead
+from pixelpioneer.models import ProductCard  
 from pixelpioneer.serializers import ProductCardSerializer
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -15,14 +15,17 @@ class ProductCardViewSet(viewsets.ModelViewSet):
     queryset = ProductCard.objects.all()
     serializer_class = ProductCardSerializer
 
-
+   
 def index(request):
     return render(request, 'index.html')
 
 
 def product_list(request):
-
-    products = ProductCard.objects.all()
+    category = request.GET.get('category', '')
+    if category:
+        products = ProductCard.objects.filter(category__icontains=category)
+    else:
+        products = ProductCard.objects.all()
 
     return render(request, 'pixelpioneer/product_list.html', {'products':products})
 
