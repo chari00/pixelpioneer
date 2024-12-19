@@ -36,19 +36,32 @@ def getAllProducts(request):
     ]
 )
 def getProductsByCategory(request):
-    category = request.query_params.get('category', '')
-    if category:
-        products = ProductCard.objects.filter(category__icontains=category)
-        serializer = ProductCardSerializer(products, many=True)
+    try:
+        category = request.query_params.get('category', '')
+        if category:
+            products = ProductCard.objects.filter(category__icontains=category)
+            if products.exists():
+                serializer = ProductCardSerializer(products, many=True)
+                return Response({
+                    "status": True,
+                    "message": f"Products in category: {category}",
+                    "data": serializer.data
+                })
+            return Response({
+                "status": False,
+                "message": f"No products found in category: {category}",
+            }, status=404)
         return Response({
-            "status": True,
-            "message": f"Products in category: {category}",
-            "data": serializer.data
-        })
-    return Response({
-        "status": False,
-        "message": "Category parameter is required",
-    }, status=400)
+            "status": False,
+            "message": "Category parameter is required",
+        }, status=400)
+    except Exception as e:
+        return Response({
+            "status": False,
+            "message": "An error occurred while processing your request",
+            "error": str(e)
+        }, status=500)
+
 
 
 @api_view(['GET'])
