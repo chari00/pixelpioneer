@@ -281,12 +281,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / 'pixelpioneer' / 'static' 
 ]
-MEDIA_URL = '/media/'
+MEDIA_URL = '/mediafiles/'
 
-# if DEBUG:
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# else:
-    # MEDIA_ROOT = '/opt/render/project/src/mediafiles'
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_ROOT = '/opt/render/project/src/mediafiles/products'
 
 FILE_UPLOAD_PERMISSIONS = 0o644
 # File upload settings
