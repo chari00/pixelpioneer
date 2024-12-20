@@ -281,14 +281,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     BASE_DIR / 'pixelpioneer' / 'static' 
 ]
-MEDIA_URL = '/mediafiles/'
 
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+# For development
 if DEBUG:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 else:
-    MEDIA_ROOT = '/opt/render/project/src/mediafiles/products'
+    MEDIA_ROOT = '/opt/render/project/src/mediafiles/'
 
-FILE_UPLOAD_PERMISSIONS = 0o644
+FILE_UPLOAD_PERMISSIONS = int(os.environ.get('FILE_PERMISSIONS', '0o644'))
 # File upload settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  
