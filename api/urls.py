@@ -51,6 +51,5 @@ urlpatterns = [
     path('auth/', include('accountsapi.urls')),
     # path('api/', include('pixelpioneerapi.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-ui')
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
