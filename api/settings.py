@@ -293,7 +293,7 @@ STATICFILES_DIRS = [
 #     MEDIA_ROOT = '/opt/render/project/src/mediafiles/'
 
 MEDIA_URL = '/mediafiles/'
-MEDIA_ROOT = '/opt/render/project/src/mediafiles/'
+MEDIA_ROOT = '/opt/render/project/src/mediafiles/products'
 
 FILE_UPLOAD_PERMISSIONS = int(os.environ.get('FILE_PERMISSIONS', '0o644'))
 # File upload settings
